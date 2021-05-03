@@ -1,31 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function MyThing(){
+function MyThing() {
   return (
-  <div className='book'>
-    <div className='title'>
-      The Title
+    <div className='book'>
+      <div className='title'>
+        The Title
     </div>
-    <div className='author'>
-      Paulo Coleho
+      <div className='author'>
+        Paulo Coleho
     </div>
-    <ul className='stats'>
-      <li className='rating'>
-        5 stars
+      <ul className='stats'>
+        <li className='rating'>
+          5 stars
       </li>
-      <li className='isbn'>
-        12-345678-910
+        <li className='isbn'>
+          12-345678-910
         </li>
-    </ul>
-  </div>
+      </ul>
+    </div>
   );
 }
 
-
-
 ReactDOM.render(
-  <MyThing/>,
+  <MyThing />,
   document.querySelector('#root')
 );
 
