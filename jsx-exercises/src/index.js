@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 function MyThing(){
-  return ( 
+  return (
   <div className='book'>
     <div className='title'>
       The Title
     </div>
     <div className='author'>
-      The Author
+      Paulo Coleho
     </div>
     <ul className='stats'>
       <li className='rating'>
