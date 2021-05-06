@@ -52,7 +52,7 @@ Tweet.propTypes = {
     author: PropTypes.shape,
     time: PropTypes.string,
     text: PropTypes.string,
-    buttons: PropTypes.number
+    count: PropTypes.number
   })
 };
 
