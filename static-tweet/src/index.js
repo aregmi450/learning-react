@@ -45,10 +45,19 @@ function Tweet({ tweet }) {
 
   );
 }
+
+Tweet.propTypes = {
+  tweet: PropTypes.objectOf({
+    hash: PropTypes.string,
+    author: PropTypes.shape,
+    time: PropTypes.string,
+    text: PropTypes.string,
+    buttons: PropTypes.number
+  })
+};
+
+
 //adding test tweet object
-
-
-
 //adding avatar function to show avatar of the user 
 //first key is used for hash variable 
 function Avatar({ hash }) {
@@ -61,6 +70,10 @@ function Avatar({ hash }) {
   );
 }
 
+Avatar.propTypes = {
+  hash: PropTypes.string
+};
+
 //adding message component to add message from the user
 function Message({ text }) {
   return (
@@ -70,6 +83,9 @@ function Message({ text }) {
   );
 }
 
+Message.propTypes = {
+  text: PropTypes.string
+};
 //author adds the username to the main app
 function Author({ author }) {
   const { name, handle } = author;
@@ -80,6 +96,14 @@ function Author({ author }) {
     </span>
   );
 }
+
+Author.propTypes = {
+  author: PropTypes.shape({
+    name : PropTypes.string.isRequired,
+    handle : PropTypes.string.isRequired
+  }).isRequired
+};
+
 
 //these are arrow functions 
 //let keyword defines changeable variable can be used instead of var 
@@ -92,10 +116,16 @@ const Time = ({ time }) => {
     <span className="time"> {timeString}</span>
   );
 };
+
+Time.propTypes = {
+  time: PropTypes.string
+};
+
 const ReplyButton = () => (
   <i className="fa fa-reply reply-button" />
 );
-function getRetweetCount(count) {
+
+ function getRetweetCount(count) {
   if (count > 0) {
     return (
       <span className="retweet-count">
@@ -109,10 +139,16 @@ function getRetweetCount(count) {
 
 const RetweetButton = ({ count }) => (
   <span className="retweet-button">
-    <i className="fa fa-retweet retweet-button" />
+    <i className="fa fa-retweet retweet-button"/>
+    <span className = "retweet-count">
     {getRetweetCount(count)}
+    </span>
   </span>
 );
+
+RetweetButton.propTypes = {
+  count: PropTypes.number
+};
 
 const LikeButton = ({ count }) => (
   <span className="like-button">
@@ -123,6 +159,10 @@ const LikeButton = ({ count }) => (
       </span>}
   </span>
 );
+
+LikeButton.propTypes = {
+  count: PropTypes.number
+};
 
 const MoreOptionsButton = () => (
   <i className="fa fa-ellipsis-h more-options-button" />
