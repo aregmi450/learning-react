@@ -1,36 +1,62 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';  /* importing a file into js */
-
+import moment from 'moment';
 
 //prop is short for property
 
 
+//main function where all the components of the program are called to use 
+function Tweet({ tweet }) {
+  return (
+    <div className="tweet">
+      <Avatar hash={tweet.gravatar} />
+      <div className="content">
+        <Author author={tweet.author} /><Time time ={tweet.timestamp} />
+        <Message text={tweet.message} />
+        <div className="buttons">
+          <ReplyButton />
+          <RetweetButton count={tweet.retweets} />
+          <LikeButton count={tweet.likes} />
+          <MoreOptionsButton />
+        </div>
+      </div>
+    </div>
+
+  );
+}
+//adding test tweet object
+
+
+
 //adding avatar function to show avatar of the user 
-function Avatar(){
+function Avatar({hash}){
+  // eslint-disable-next-line no-template-curly-in-string
+  const url = 'https://www.gravatar.com/avatar/${hash}';
   return(
-    <img 
-      src= "https://www.gravatar.com/avatar/nothing"
-      className = "avatar"
-      alt ="avatar" />
+    <img
+    src = {url}
+    className = "avatar"
+    alt ="avatar"/>
   );
 }
 
 //adding message component to add message from the user
-function Message(){
+function Message({text}){
   return(
     <div className="message">
-      The tweet must be less than 140 characters.
+      {text}
     </div>
   );
 }
 
 //author adds the username to the main app
-function Author(){
+function Author({author}){
+  const {name, handle} = author;
   return(
     <span className="author">
-     <span className="name">Your Name </span>
-     <span className="handle"> Your Handle</span> 
+     <span className="name">{name}</span>
+     <span className="handle"> @{handle}</span> 
     </span>
   );
 }
@@ -39,46 +65,65 @@ function Author(){
 //let keyword defines changeable variable can be used instead of var 
 // const keyword defines constant and throws error if you try to reassign variable
 
-const Time = () => (
-  <span className="time"> 3h ago</span>
+// has 2 statement so needs surrounding braces and return 
+const Time = ({time}) => {
+  const timeString = moment(time).fromNow();
+  return(
+  <span className="time"> {timeString}</span>
 );
+  };
 const ReplyButton = () => (
   <i className="fa fa-reply reply-button"/>
 );
-const RetweetButton = () => (
+function getRetweetCount(count) {
+  if (count > 0) {
+    return (
+      <span className="retweet-count">
+        {count}
+      </span>
+    );
+  } else {
+    return null;
+  }
+}
+
+const RetweetButton = ({ count}) => (
+  <span className="retweet-button">
   <i className="fa fa-retweet retweet-button"/>
+  {getRetweetCount(count)}
+  </span>
 );
-const LikeButton = () => (
-  <i className="fa fa-heart like-button"/>
+
+const LikeButton = ({ count }) => (
+  <span className="like-button">
+    <i className="fa fa-heart" />
+    {count > 0 &&
+      <span className="like-count">
+        {count}
+      </span>}
+  </span>
 );
+
 const MoreOptionsButton = () => (
   <i className="fa fa-ellipsis-h more-options-button"/>
 );
 
+//adding the tweet props destructured
 
-//main function where all the components of the program are called to use 
-function Tweet() {
-  return (
-    <div className="tweet">
-      <Avatar />
-      <div className="content">
-        <Author/><Time/>
-        <Message/>
-        <div className="buttons">
-          <ReplyButton />
-          <RetweetButton />
-          <LikeButton />
-          <MoreOptionsButton />
-        </div>
-      </div>
-    </div>
-
-  );
-}
+const testTweet = {
+  message: "Sometihng about football.",
+  gravatar: "36374250faae5973dca88b8e59da282f",
+  author: {
+    handle: "footballguy",
+    name: "THE FOOTBALL GUY"
+  },
+  likes: 2,
+  retweets: 0,
+  timestamp: "2021-05-01 21:22:34.45"
+};
 
 
 
-ReactDOM.render(
-  <Tweet/>,
+ReactDOM.render(<Tweet tweet={testTweet}/>,
   document.querySelector('#root')
 );
