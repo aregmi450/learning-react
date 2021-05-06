@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 
 
 //prop is short for property
+// you must remember to declare prop types
+//you can use linter tool to check if you use prop types
 function Comment({ author, message, likes }) {
   return (
     <div>
